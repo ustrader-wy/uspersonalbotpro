@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YQT BOT PRO - Trading Signals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      font-size: 2em;
+      color: #00ffae;
+    }
+    #signal {
+      font-size: 1.5em;
+      margin: 20px;
+      padding: 20px;
+      background: #222;
+      border: 2px solid #00ffae;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 1.1em;
+      color: #fff;
+      background: #00ffae;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #00cc8a;
+    }
+    a {
+      color: #00ffae;
+      text-decoration: none;
+      margin-top: 20px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📊 YQT BOT PRO</h1>
+  <p>Get Real-Time Accurate Buy/Sell Signals</p>
+
+  <div id="signal">Press "Get Signal" to Start</div>
+  <br><br>
+  <button onclick="generateSignal()">Get Signal</button>
+
+  <br><br>
+  <a href="https://t.me/your_channel" target="_blank">📣 Join Our Telegram Channel</a>
+
+  <script>
+    function generateSignal() {
+      // Simulate RSI and MACD based logic
+      const rsi = Math.floor(Math.random() * 100);
+      const macd = Math.random() * 2 - 1;
+
+      let signal = '';
+      if (rsi < 30 && macd > 0) {
+        signal = "📈 Strong BUY Signal (RSI: " + rsi + ", MACD: " + macd.toFixed(2) + ")";
+      } else if (rsi > 70 && macd < 0) {
+        signal = "📉 Strong SELL Signal (RSI: " + rsi + ", MACD: " + macd.toFixed(2) + ")";
+      } else {
+        signal = "⚠️ No Clear Signal (RSI: " + rsi + ", MACD: " + macd.toFixed(2) + ")";
+      }
+
+      document.getElementById("signal").innerText = signal;
+    }
+  </script>
+
+</body>
+</html>
