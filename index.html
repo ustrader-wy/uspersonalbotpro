@@ -2,80 +2,212 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>YQT BOT PRO - Trading Signals</title>
+  <title>YQT BOT PRO Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: #111;
       color: #fff;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #1a1a1a;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: #00ffc3;
+      margin-bottom: 30px;
       text-align: center;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      margin: 15px 0;
+      padding: 10px;
+      background: #222;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #00ffc3;
+      color: #000;
+    }
+
+    /* Main */
+    .main {
+      flex: 1;
       padding: 30px;
     }
-    h1 {
-      font-size: 2em;
-      color: #00ffae;
-    }
-    #signal {
-      font-size: 1.5em;
-      margin: 20px;
-      padding: 20px;
-      background: #222;
-      border: 2px solid #00ffae;
-      border-radius: 10px;
-      display: inline-block;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 1.1em;
-      color: #fff;
-      background: #00ffae;
-      border: none;
+
+    header {
+      background: #1f1f1f;
+      padding: 15px 30px;
       border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 1.5em;
+      color: #00ffc3;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+    }
+
+    select, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+    }
+
+    button {
+      background: #00ffc3;
+      color: #000;
       cursor: pointer;
-      transition: 0.3s;
     }
+
     button:hover {
-      background: #00cc8a;
+      background: #00cc9e;
     }
-    a {
-      color: #00ffae;
-      text-decoration: none;
-      margin-top: 20px;
-      display: inline-block;
+
+    .signal-box {
+      background: #222;
+      border: 2px solid #00ffc3;
+      padding: 25px;
+      border-radius: 10px;
+      font-size: 1.2em;
+      min-height: 100px;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    @media screen and (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        text-align: center;
+      }
+
+      .main {
+        padding: 15px;
+      }
+
+      .controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      select, button {
+        width: 90%;
+        max-width: 300px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>📊 YQT BOT PRO</h1>
-  <p>Get Real-Time Accurate Buy/Sell Signals</p>
+  <div class="sidebar">
+    <h2>📊 YQT BOT</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">Live Signals</a>
+    <a href="#">Settings</a>
+    <a href="https://t.me/your_channel" target="_blank">Telegram</a>
+  </div>
 
-  <div id="signal">Press "Get Signal" to Start</div>
-  <br><br>
-  <button onclick="generateSignal()">Get Signal</button>
+  <div class="main">
+    <header>
+      <h1>Trading Signal Dashboard</h1>
+    </header>
 
-  <br><br>
-  <a href="https://t.me/your_channel" target="_blank">📣 Join Our Telegram Channel</a>
+    <div class="controls">
+      <select id="broker">
+        <option disabled selected>Select Broker</option>
+        <option value="Quotex">Quotex</option>
+        <option value="PocketOption">Pocket Option</option>
+        <option value="Binomo">Binomo</option>
+      </select>
+
+      <select id="pair">
+        <option disabled selected>Select Pair</option>
+        <option value="EUR/USD">EUR/USD</option>
+        <option value="GBP/JPY">GBP/JPY</option>
+        <option value="BTC/USD">BTC/USD</option>
+        <option value="USD/JPY">USD/JPY</option>
+      </select>
+
+      <select id="timeframe">
+        <option disabled selected>Select Timeframe</option>
+        <option value="1m">1 Minute</option>
+        <option value="5m">5 Minutes</option>
+        <option value="15m">15 Minutes</option>
+      </select>
+
+      <button onclick="generateSignal()">🎯 Get Signal</button>
+    </div>
+
+    <div class="signal-box" id="signalBox">
+      Select options and click "Get Signal" to see analysis.
+    </div>
+
+    <footer>
+      &copy; 2025 YQT Bot Pro. Built for traders.
+    </footer>
+  </div>
 
   <script>
     function generateSignal() {
-      // Simulate RSI and MACD based logic
-      const rsi = Math.floor(Math.random() * 100);
-      const macd = Math.random() * 2 - 1;
+      const broker = document.getElementById("broker").value;
+      const pair = document.getElementById("pair").value;
+      const tf = document.getElementById("timeframe").value;
 
-      let signal = '';
-      if (rsi < 30 && macd > 0) {
-        signal = "📈 Strong BUY Signal (RSI: " + rsi + ", MACD: " + macd.toFixed(2) + ")";
-      } else if (rsi > 70 && macd < 0) {
-        signal = "📉 Strong SELL Signal (RSI: " + rsi + ", MACD: " + macd.toFixed(2) + ")";
-      } else {
-        signal = "⚠️ No Clear Signal (RSI: " + rsi + ", MACD: " + macd.toFixed(2) + ")";
+      if (!broker || !pair || !tf) {
+        document.getElementById("signalBox").innerText = "⚠️ Please select Broker, Pair, and Timeframe.";
+        return;
       }
 
-      document.getElementById("signal").innerText = signal;
+      // Simulated RSI & MACD values
+      const rsi = Math.floor(Math.random() * 100);
+      const macd = (Math.random() * 4 - 2).toFixed(2);
+      let signal = '';
+
+      if (rsi < 30 && macd > 0) {
+        signal = `📈 BUY Signal for ${pair} [${tf}] on ${broker} (RSI: ${rsi}, MACD: ${macd})`;
+      } else if (rsi > 70 && macd < 0) {
+        signal = `📉 SELL Signal for ${pair} [${tf}] on ${broker} (RSI: ${rsi}, MACD: ${macd})`;
+      } else {
+        signal = `⚠️ NO CLEAR Signal for ${pair} [${tf}] on ${broker} (RSI: ${rsi}, MACD: ${macd})`;
+      }
+
+      document.getElementById("signalBox").innerText = signal;
     }
   </script>
 
 </body>
 </html>
+
